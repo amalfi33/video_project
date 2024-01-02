@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
-from django.shortcuts import reverse
+from django.urls import reverse
 
 class Image(models.Model):
     image = models.ImageField('Картинка', upload_to='image/')
@@ -20,7 +20,7 @@ class Post(models.Model):
     slug = models.SlugField('Ссылка', unique = True)
     preview = models.ForeignKey(Image, on_delete = models.SET_NULL, null = True, blank = True, verbose_name = 'Обложка' )
     gallery = models.ManyToManyField(Image, verbose_name= 'Галерея', related_name= 'posts')
-    date = models.DateField('Дата', default = False)
+    date = models.DateField('Дата', default =timezone.now)
     publish = models.BooleanField('Публикация', default = False)
     video = models.FileField('Видео', upload_to = 'videos/')
     featured = models.BooleanField('Рекомендованные', default = False)
